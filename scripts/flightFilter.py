@@ -36,7 +36,7 @@ def fun(filename, sheetNo=0):
         ])
 
     workbook = xlwt.Workbook(encoding = 'ascii')
-    worksheet = workbook.add_sheet('筛选过的冻结订单')
+    worksheet = workbook.add_sheet('冻结的订单')
     for c in range(cols):
         worksheet.write(0, c, label = sh.cell_value(rowx=0,colx=c))
 
