@@ -1,6 +1,7 @@
 import xlrd
 import xlwt
 import sys
+import datetime
 
 # 因为没有在遍历的时候删除相同项，向后的相同项匹配会造成统计不全和重复统计的情况，
 # 实际上遍历一边，归类，再做提取才是正确的情况。
@@ -68,6 +69,7 @@ def fun2 (filename, sheetNo = 2):
         if not dataSet.get(value):
             dataSet[value] = []
 
+        # print('time:', sh.cell_value(rowx=r,colx=0))
         dataSet[value].append([
             sh.cell_value(rowx=r,colx=0),
             sh.cell_value(rowx=r,colx=1),
@@ -93,7 +95,12 @@ def fun2 (filename, sheetNo = 2):
         if (balance_sum != 0):
             for k in j:
                 for c in range(cols):
-                    worksheet.write(countrow, c, label = k[c])
+                    if c == 0:
+                        # print(xlrd.xldate.xldate_as_datetime(k[c], book.datemode))
+                        # worksheet.write(countrow, c, label = xlrd.xldate.xldate_as_datetime(k[c], book.datemode).strftime('%-m/%-d/%Y %H:%m:%S'))
+                        worksheet.write(countrow, c, label = xlrd.xldate.xldate_as_datetime(k[c], book.datemode))
+                    else:
+                        worksheet.write(countrow, c, label = k[c])
                 countrow += 1
             
 
